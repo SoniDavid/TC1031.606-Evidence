@@ -6,8 +6,8 @@
 
 #include "../include/error.h"
 
-
 using namespace std;
+
 
 int main() {
 
@@ -36,18 +36,27 @@ int main() {
         // Read time 
         std::string time_str;
         iss >> time_str;
-        int hour, minute, second;
-        sscanf(time_str.c_str(), "%d:%d:%d", &hour, &minute, &second);
-        // Unnecessary to create an object for the Hour class
+        std::string hour, minute, second;
+        std::stringstream ss(time_str);
+
+        // Split the time_str into hour, minute, and second
+        std::getline(ss, hour, ':');
+        std::getline(ss, minute, ':');
+        std::getline(ss, second, ':');
         // Hour time(hour, minute, second);
 
         // Read IP
         std::string ip_str;
         iss >> ip_str;
-        int ipPart1, ipPart2, ipPart3, ipPart4, ipPart5;
-        sscanf(ip_str.c_str(), "%d.%d.%d.%d:%d", &ipPart1, &ipPart2, &ipPart3, &ipPart4, &ipPart5);
-        // Unnecessary to create an object for the IPDirection class
-        // IPDirection ip(ipPart1, ipPart2, ipPart3, ipPart4, ipPart5);
+        std::string ipP1, ipP2, ipP3, ipP4, ipP5;
+        std::stringstream ip_ss(ip_str);
+
+        // Split the ip_str into its parts
+        std::getline(ip_ss, ipP1, '.');
+        std::getline(ip_ss, ipP2, '.');
+        std::getline(ip_ss, ipP3, '.');
+        std::getline(ip_ss, ipP4, ':');
+        std::getline(ip_ss, ipP5, ':');
 
         // Read message
         std::vector<std::string> message;
@@ -56,9 +65,9 @@ int main() {
             message.push_back(word);
         }
 
-        // Creating the Error object
+        // Creating the Error pointer object
         Error* errorEntry = new Error(month, day, hour, minute, second,
-                                    ipPart1, ipPart2, ipPart3, ipPart4, ipPart5,
+                                    ipP1, ipP2, ipP3, ipP4, ipP5,
                                     message); 
 
         // Store it in vector of pointers

@@ -10,7 +10,7 @@ Error::Error() {
     ip = IPDirection();
 }
 
-Error::Error(string month, int day, int hour, int minute, int second, int part1, int part2, int part3, int part4, int part5, vector<string> message) {
+Error::Error(string month, int day, string hour, string minute, string second, string part1, string part2, string part3, string part4, string part5, vector<string> message) {
     this->month = month;
     this->day = day;
     this->time = Hour(hour, minute, second);
@@ -19,7 +19,7 @@ Error::Error(string month, int day, int hour, int minute, int second, int part1,
 }
 
 void Error::printError() {
-    cout << month << " " << day << " " << time.getHour() << ":" << time.getMinute() << ":" << time.getSecond() << " " << ip.getIPDirection() << " ";
+    cout << month << " " << day << " " << time.getHourStr() << ":" << time.getMinuteStr() << ":" << time.getSecondStr() << " " << ip.getIPDirection() << " ";
     if (message.size() > 0) {
         for (int i = 0; i < message.size(); i++) {
             cout << message[i] << " ";
@@ -29,7 +29,7 @@ void Error::printError() {
 }
 
 string Error::getError() {
-    string error = month + " " + to_string(day) + " " + to_string(time.getHour()) + ":" + to_string(time.getMinute()) + ":" + to_string(time.getSecond()) + " " + ip.getIPDirection() + " ";
+    string error = month + " " + to_string(day) + " " + time.getHourStr() + ":" + time.getMinuteStr() + ":" + time.getSecondStr() + " " + ip.getIPDirection() + " ";
     if (message.size() > 0) {
         for (int i = 0; i < message.size(); i++) {
             error += message[i] + " ";

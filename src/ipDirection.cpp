@@ -14,52 +14,32 @@ IPDirection::IPDirection() {
     int part5 = 0;
 }
 
-IPDirection::IPDirection(int _part1, int _part2, int _part3, int _part4, int _part5)
-: part1(_part1), part2(_part2), part3(_part3), part4(_part4), part5(_part5) {}
+IPDirection::IPDirection(string _p1, string _p2, string _p3, string _p4, string _p5) 
+: p1(_p1), p2(_p2), p3(_p3), p4(_p4), p5(_p5) {}
 
-
-int IPDirection::getPart1() {
-    return part1;
+string IPDirection::getP1() {
+    return p1;
 }
 
-int IPDirection::getPart2() {
-    return part2;
+string IPDirection::getP2() {
+    return p2;
 }
 
-int IPDirection::getPart3() {
-    return part3;
+string IPDirection::getP3() {
+    return p3;
 }
 
-int IPDirection::getPart4() {
-    return part4;
+string IPDirection::getP4() {
+    return p4;
 }
 
-int IPDirection::getPart5() {
-    return part5;
+string IPDirection::getP5() {
+    return p5;
 }
 
-void IPDirection::setPart1(int _part1) {
-    part1 = _part1;
-}
-
-void IPDirection::setPart2(int _part2) {
-    part2 = _part2;
-}
-
-void IPDirection::setPart3(int _part3) {
-    part3 = _part3;
-}
-
-void IPDirection::setPart4(int _part4) {
-    part4 = _part4;
-}
-
-void IPDirection::setPart5(int _part5) {
-    part5 = _part5;
-}
 
 string IPDirection::getIPDirection() {
-    return to_string(part1) + "." + to_string(part2) + "." + to_string(part3) + "." + to_string(part4) + ":" + to_string(part5);
+    return p1 + "." + p2 + "." + p3 + "." + p4 + ":" + p5;
 }
 
 
