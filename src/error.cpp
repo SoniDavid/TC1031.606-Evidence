@@ -1,39 +1,39 @@
-#include <iostream>
+// error.cpp
 #include "../include/error.h"
 
-using namespace std;
+// Default constructor
+Error::Error() : month(""), day(0), time(Hour()), ip(IPDirection()) {}
 
-Error::Error() {
-    month = "Jan";
-    day = 1;
-    time = Hour();
-    ip = IPDirection();
+// Parameterized constructor
+Error::Error(std::string m, int d, int h, int min, int s, int p1, int p2, int p3, int p4, int prt, std::vector<std::string> msg)
+    : month(m), day(d), time(Hour(h, min, s)), ip(IPDirection(p1, p2, p3, p4, prt)), message(msg) {}
+
+// Method to print the error details
+void Error::printError() const {
+    std::cout << getError() << std::endl;
 }
 
-Error::Error(string month, int day, int hour, int minute, int second, int part1, int part2, int part3, int part4, int part5, vector<string> message) {
-    this->month = month;
-    this->day = day;
-    this->time = Hour(hour, minute, second);
-    this->ip = IPDirection(part1, part2, part3, part4, part5);
-    this->message = message; // Assign the message vector to the class member
-}
-
-void Error::printError() {
-    cout << month << " " << day << " " << time.getHour() << ":" << time.getMinute() << ":" << time.getSecond() << " " << ip.getIPDirection() << " ";
-    if (message.size() > 0) {
-        for (int i = 0; i < message.size(); i++) {
-            cout << message[i] << " ";
-        }
+// Method to return error details as a string
+std::string Error::getError() const {
+    std::ostringstream oss;
+    oss << month << " " << day << " " << time << " " << ip << " ";
+    for (const auto& word : message) {
+        oss << word << " ";
     }
-    cout << endl;
+    return oss.str();
 }
 
-string Error::getError() {
-    string error = month + " " + to_string(day) + " " + to_string(time.getHour()) + ":" + to_string(time.getMinute()) + ":" + to_string(time.getSecond()) + " " + ip.getIPDirection() + " ";
-    if (message.size() > 0) {
-        for (int i = 0; i < message.size(); i++) {
-            error += message[i] + " ";
-        }
-    }
-    return error;
+// Overload '<' operator to compare Error objects based on date and time
+bool Error::operator<(const Error& other) const {
+    if (month != other.month) return month < other.month;
+    if (day != other.day) return day < other.day;
+    if (time.getHour() != other.time.getHour()) return time.getHour() < other.time.getHour();
+    if (time.getMinute() != other.time.getMinute()) return time.getMinute() < other.time.getMinute();
+    return time.getSecond() < other.time.getSecond();
+}
+
+// Overload '<<' operator for outputting Error objects
+std::ostream& operator<<(std::ostream& os, const Error& e) {
+    os << e.getError();
+    return os;
 }
